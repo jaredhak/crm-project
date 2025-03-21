@@ -27,8 +27,8 @@ class Lead(db.Model):
     def to_dict(self):
         return {"id": self.id, "name": self.name, "phone": self.phone, "source": self.source, "notes": self.notes, "follow_up_date": self.follow_up_date}
 
-@app.before_first_request
-def create_tables():
+# Initialize database inside app context
+with app.app_context():
     db.create_all()
 
 @app.route('/leads', methods=['POST'])
